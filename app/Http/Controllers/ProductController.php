@@ -6,9 +6,19 @@ use App\Model\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Resources\Product\ProductCollection;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
+  /**
+   * Constructor
+   *
+   */
+   public function __construct()
+   {
+     $this->middleware('auth:api')->except('index', 'show');
+   }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,9 +45,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $product = new Product;
+        $product->name = $request->name;
+        $product->detail = $request->detail;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        $product->discount = $request->discount;
+        $product->save();
+
+          return response([
+            'data' => new ProductResource($product)
+          ], 201); //201 return created
     }
 
     /**
