@@ -2,8 +2,9 @@
 
 use Faker\Generator as Faker;
 use App\Model\Product;
+use App\Model\Review;
 
-$factory->define(App\Model\Review::class, function (Faker $faker) {
+$factory->define(Review::class, function (Faker $faker) {
     return [
         //random product id
         'product_id' => function(){
