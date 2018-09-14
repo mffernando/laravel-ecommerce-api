@@ -55,6 +55,7 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->price = $request->price;
         $product->discount = $request->discount;
+        $product->user_id = $request->user_id;
         $product->save();
 
           return response([
